@@ -1,9 +1,15 @@
 angular.module('myApp', [])
-.directive('drawing', function(){
+.directive('drawing', function($window){
 	return {
 		restrict: "A",
 		link: function(scope, element){
+			console.log($window);
+			console.log(element);
 			//Initialize 2D drawing context
+			var theCanvas = element[0];
+			theCanvas.width = window.innerWidth;
+			theCanvas.height = window.innerHeight;
+
 			var ctx = element[0].getContext('2d');
 			var device = {};
 			//Function to find out if device has touch capabilities, returns true if has touch
@@ -82,8 +88,9 @@ angular.module('myApp', [])
 			//Give a user a random color to differentialize
 			var userColor = Math.floor(Math.random()*1000000);
 
-			//Binding mouseup to canvas to stop drawing
-			element.bind(device.data.off, function(event){
+			//Binding mouseup to window to stop drawing, when moves off canvas will stop drawing
+			angular.element($window).bind(device.data.off, function(event){
+				console.log('off');
 				ctx.strokeStyle = "#" + userColor;
 				ctx.stroke();
 				//Stop Drawing
@@ -95,7 +102,7 @@ angular.module('myApp', [])
 				//Reset width which essentially resets the canvas
 				element[0].width = element[0].width;
 			}
-			
+
 			//Allows a user to draw on canvas
 			function draw(bX, bY, eX, eY ){
 				//line begins
@@ -113,8 +120,6 @@ angular.module('myApp', [])
 				//draw
 				ctx.stroke();
 			}
-
-
 		}
 	};
 });
