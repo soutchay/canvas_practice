@@ -3,12 +3,14 @@ angular.module('myApp', [])
 	return {
 		restrict: "A",
 		link: function(scope, element){
-			// console.log(element);
-			//Initialize 2D drawing context
+			
+			//Set the height and width of canvas to size of window
 			var theCanvas = element[0];
 			theCanvas.width = window.innerWidth;
 			theCanvas.height = window.innerHeight;
 
+			var changedTouches = [];
+			//Initialize 2D drawing context
 			var ctx = element[0].getContext('2d');
 			var device = {};
 			//Function to find out if device has touch capabilities, returns true if has touch
@@ -63,6 +65,8 @@ angular.module('myApp', [])
 				//Begin Line
 				ctx.beginPath();
 				drawing = true;
+				// Prevents additional mousedown/touch events to be triggered
+				event.preventDefault();
 			});
 
 			//When moving mouse, will start drawing if drawing is true
@@ -90,6 +94,8 @@ angular.module('myApp', [])
 					lastX = currentX;
 					lastY = currentY;
 					}
+					// Prevents additional mouse/touch events to be triggered
+					event.preventDefault();
 				}
 			});
 
@@ -103,6 +109,8 @@ angular.module('myApp', [])
 				ctx.stroke();
 				//Stop Drawing
 				drawing = false;
+				// Prevents additional mousedown/touch events to be triggered
+				event.preventDefault();
 			});
 
 			//Reset Canvas Function
@@ -118,7 +126,7 @@ angular.module('myApp', [])
 				//line ends
 				ctx.lineTo(eX, eY);
 				//line width
-				ctx.lineWidth = 15;
+				ctx.lineWidth = 10;
 				//Make the line curved
 				ctx.lineJoin = 'round';
 				ctx.quadraticCurveTo(bX, bY, eX, eY );
