@@ -54,8 +54,8 @@ angular.module('myApp', [])
 				}
 				else if (is_touch_device()){
 					currentX = event.changedTouches[0].pageX;
-					currentY = event.changedTouches[0].pageY;					
-				}
+					currentY = event.changedTouches[0].pageY;
+			}
 				else {
 					lastX = event.layerX - event.currentTarget.offsetLeft;
 					lastY = event.layerY - event.currentTarget.offsetTop;
@@ -86,8 +86,10 @@ angular.module('myApp', [])
 					console.log(currentX, currentY);
 					draw(lastX, lastY, currentX, currentY);
 					//Set current coords to last
+					if (!is_touch_device()){
 					lastX = currentX;
 					lastY = currentY;
+					}
 				}
 			});
 
