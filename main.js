@@ -18,7 +18,7 @@ angular.module('myApp', [])
 				if(event.offsetX!==undefined){
 					lastX = event.offsetX;
 					lastY = event.offsetY;
-				} 
+				}
 				else {
 					lastX = event.layerX - event.currentTarget.offsetLeft;
 					lastY = event.layerY - event.currentTarget.offsetTop;
@@ -48,10 +48,14 @@ angular.module('myApp', [])
 					lastX = currentX;
 					lastY = currentY;
 				}
-			})
+			});
 
+			var userColor = Math.floor(Math.random()*1000000);
 			//Binding mouseup to canvas to stop drawing
 			element.bind('mouseup', function(event){
+				ctx.strokeStyle = "#" + userColor;
+				// ctx.strokeStyle = "#000000";
+				ctx.stroke();
 				//Stop Drawing
 				drawing = false;
 			});
@@ -68,9 +72,11 @@ angular.module('myApp', [])
 				ctx.lineTo(eX, eY);
 				//line width
 				ctx.lineWidth = 15;
+				//Make the line curved
 				ctx.quadraticCurveTo(bX, bY, eX, eY );
-				//stroke color black
-				ctx.strokeStyle ="#000000";
+				//stroke color random
+				var color = Math.floor(Math.random()*1000000);
+				ctx.strokeStyle ="#" + color ;
 				//draw
 				ctx.stroke();
 			}
@@ -78,4 +84,4 @@ angular.module('myApp', [])
 
 		}
 	}
-})
+});
