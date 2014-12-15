@@ -25,7 +25,7 @@ angular.module('myApp', [])
 				}
 				//Begin Line
 				ctx.beginPath();
-				drawing = true;	
+				drawing = true;
 			});
 
 			//When moving mouse, will start drawing if drawing is true
@@ -49,12 +49,12 @@ angular.module('myApp', [])
 					lastY = currentY;
 				}
 			});
-
+			//Give a user a random color to differentialize
 			var userColor = Math.floor(Math.random()*1000000);
+
 			//Binding mouseup to canvas to stop drawing
 			element.bind('mouseup', function(event){
 				ctx.strokeStyle = "#" + userColor;
-				// ctx.strokeStyle = "#000000";
 				ctx.stroke();
 				//Stop Drawing
 				drawing = false;
@@ -74,7 +74,7 @@ angular.module('myApp', [])
 				ctx.lineWidth = 15;
 				//Make the line curved
 				ctx.quadraticCurveTo(bX, bY, eX, eY );
-				//stroke color random
+				//stroke color random while drawing
 				var color = Math.floor(Math.random()*1000000);
 				ctx.strokeStyle ="#" + color ;
 				//draw
@@ -83,5 +83,5 @@ angular.module('myApp', [])
 
 
 		}
-	}
+	};
 });
