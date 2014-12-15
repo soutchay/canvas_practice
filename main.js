@@ -3,8 +3,7 @@ angular.module('myApp', [])
 	return {
 		restrict: "A",
 		link: function(scope, element){
-			console.log($window);
-			console.log(element);
+			// console.log(element);
 			//Initialize 2D drawing context
 			var theCanvas = element[0];
 			theCanvas.width = window.innerWidth;
@@ -53,6 +52,10 @@ angular.module('myApp', [])
 					lastX = event.offsetX;
 					lastY = event.offsetY;
 				}
+				else if (is_touch_device()){
+					currentX = event.changedTouches[0].pageX;
+					currentY = event.changedTouches[0].pageY;					
+				}
 				else {
 					lastX = event.layerX - event.currentTarget.offsetLeft;
 					lastY = event.layerY - event.currentTarget.offsetTop;
@@ -64,7 +67,6 @@ angular.module('myApp', [])
 
 			//When moving mouse, will start drawing if drawing is true
 			element.bind(device.data.move, function(event){
-				// console.log(event.layerX);
 				//Drawing is true when mousedown
 				if(drawing) {
 					console.log('works');
@@ -73,11 +75,15 @@ angular.module('myApp', [])
 						currentX = event.offsetX;
 						currentY = event.offsetY;
 					}
+					else if (is_touch_device()){
+						currentX = event.changedTouches[0].pageX;
+						currentY = event.changedTouches[0].pageY;
+					}
 					else {
 						currentX = event.layerX - event.currentTarget.offsetLeft;
 						currentY = event.layerY - event.currentTarget.offsetTop;
 					}
-
+					console.log(currentX, currentY);
 					draw(lastX, lastY, currentX, currentY);
 					//Set current coords to last
 					lastX = currentX;
