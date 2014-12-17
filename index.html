@@ -7,9 +7,11 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.min.js"></script>
 	<script src="main.js"></script>
 </head>
-<body ng-app="myApp" >
+<body ng-app="myApp" ng-controller="myController" >
 	<div>
-	<canvas id="drawing" data-drawing></canvas>
+	<canvas id="drawing" style="border: solid 5px black;" data-drawing></canvas>
+	<button data-save ng-click="fire()">Save This Image</button>
+	<canvas id="draw2" style="border: solid 5px black;"></canvas>
 	</div>
 </body>
 </html>

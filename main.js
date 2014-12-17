@@ -1,4 +1,20 @@
 angular.module('myApp', [])
+.controller('myController', function($scope, $element){
+	$scope.fire = function(){
+		//Select the canvas
+		var canvas = $element[0].querySelector("#drawing");
+		var ctx = canvas.getContext("2d");
+		//data is saving as 
+		var data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		console.log(data);
+		// console.log(JSON.stringify(data));
+		var canvas2 = $element[0].querySelector("#draw2");
+		var ctx2 = canvas2.getContext("2d");
+		ctx2.putImageData(data, 0, 0);
+	};
+})
+
+
 .directive('drawing', function($window){
 	return {
 		restrict: "A",
@@ -6,8 +22,8 @@ angular.module('myApp', [])
 			
 			//Set the height and width of canvas to size of window
 			var theCanvas = element[0];
-			theCanvas.width = window.innerWidth;
-			theCanvas.height = window.innerHeight;
+			// theCanvas.width = window.innerWidth;
+			// theCanvas.height = window.innerHeight;
 
 			var changedTouches = [];
 			//Initialize 2D drawing context
@@ -104,7 +120,7 @@ angular.module('myApp', [])
 
 			//Binding mouseup to window to stop drawing, when moves off canvas will stop drawing
 			angular.element($window).bind(device.data.off, function(event){
-				console.log('off');
+				// console.log('off');
 				ctx.strokeStyle = "#" + userColor;
 				ctx.stroke();
 				//Stop Drawing
